@@ -96,6 +96,7 @@ function analyzeSalesData(data, options) {
         if (!seller) return;
 
         seller.sales_count += 1;
+        seller.revenue += record.total_amount;
 
         // Расчёт прибыли для каждого товара
         record.items.forEach(item => {
@@ -106,7 +107,6 @@ function analyzeSalesData(data, options) {
             const revenue = calculateSimpleRevenue(item, product);
             const profit = revenue - cost;
             seller.profit += profit;
-            seller.revenue += revenue;
 
             // Учёт количества проданных товаров
             if (!seller.products_sold[item.sku]) {
