@@ -8,11 +8,7 @@ function calculateSimpleRevenue(purchase, _product) {
     // purchase — это одна из записей в поле items из чека в data.purchase_records
     // _product — это продукт из коллекции data.products
     const { discount, sale_price, quantity } = purchase;
-    const discountDecimal = discount ? discount / 100 : 0;
-    const fullCost = sale_price * quantity;
-    const revenue = fullCost * (1 - discountDecimal);
-
-    return revenue;
+    return sale_price * quantity * (1 - discount / 100);
 }
 
 /**
@@ -42,21 +38,22 @@ function calculateBonusByProfit(index, total, seller) {
  * @returns {{revenue, top_products, bonus, name, sales_count, profit, seller_id}[]}
  */
 function analyzeSalesData(data, options) {
+    console.log('Полученные опции:', options);
     if (typeof options !== 'object' || options === null
     ) {
         throw new Error('Опции должны быть объектом');
     }
 
-    const { calculateSimpleRevenue, calculateBonusByProfit } = options;
+    const { calculateRevenue, calculateBonus } = options;
 
-    if (!calculateSimpleRevenue || !calculateBonusByProfit) {
+    if (!calculateRevenue || !calculateBonus) {
         throw new Error('Чего-то не хватает');
     }
 
-    if (typeof calculateSimpleRevenue !== 'function') {
+    if (typeof calculateRevenue !== 'function') {
         throw new Error('calculateSimpleRevenue должен быть функцией');
     }
-    if (typeof calculateBonusByProfit !== 'function') {
+    if (typeof calculateBonus !== 'function') {
         throw new Error('calculateBonusByProfit должен быть функцией');
     }
 
@@ -134,7 +131,7 @@ function analyzeSalesData(data, options) {
             .slice(0, 10);
     });
 
-    return sellerStats.map(seller => ({
+    return sellerStats.map((seller) => ({
         seller_id: seller.id,
         name: seller.name,
         revenue: +seller.revenue.toFixed(2),
