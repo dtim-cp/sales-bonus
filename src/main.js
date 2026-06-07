@@ -132,12 +132,12 @@ function analyzeSalesData(data, options) {
     });
 
     return sellerStats.map((seller) => ({
-        seller_id: seller.id,
+        bonus: +seller.bonus.toFixed(2),
         name: seller.name,
-        revenue: +seller.revenue.toFixed(2),
         profit: +seller.profit.toFixed(2),
+        revenue: +seller.revenue.toFixed(2),
         sales_count: seller.sales_count,
-        top_products: seller.top_products,
-        bonus: +seller.bonus.toFixed(2)
+        seller_id: seller.id,
+        top_products: seller.top_products
     }));
 }
