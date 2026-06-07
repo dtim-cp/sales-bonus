@@ -13,16 +13,15 @@
     <script src="data/dataset_1.js"></script>
     <script src="src/main.js"></script>
     <script>
-        console.log(data);
+        //console.log(data);
 
         const report = analyzeSalesData(data, {
             calculateRevenue: calculateSimpleRevenue,
             calculateBonus: calculateBonusByProfit
         });
 
-        console.table(report)
-        //if (console.table) console.table(report);
-        //else console.log(report);
+        if (console.table) console.table(report);
+        else console.log(report);
     </script>
 </body>
 </html>
