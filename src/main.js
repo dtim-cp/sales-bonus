@@ -66,20 +66,17 @@ function analyzeSalesData(data, options) {
         throw new Error('Некорректные входные данные');
     }
 
-    if (!Array.isArray(data.sellers)
+    if (!data
+        || !Array.isArray(data.sellers)
         || !Array.isArray(data.customers)
         || !Array.isArray(data.products)
         || !Array.isArray(data.purchase_records)
-    ) {
-        throw new Error('Некорректные входные данные, поля должны быть массивами');
-    }
-
-    if (data.sellers.length === 0
+        || data.sellers.length === 0
         || data.products.length === 0
         || data.customers.length === 0
         || data.purchase_records.length === 0
     ) {
-        throw new Error('Некорректные входные данные, массивы не могут быть пустыми');
+        throw new Error('Некорректные входные данные, поля должны быть массивами');
     }
 
     // Здесь посчитаем промежуточные данные и отсортируем продавцов
