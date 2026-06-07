@@ -65,8 +65,7 @@ function analyzeSalesData(data, options) {
         throw new Error('Некорректные входные данные');
     }
 
-    if (!data
-        || !Array.isArray(data.sellers)
+    if (!Array.isArray(data.sellers)
         || !Array.isArray(data.customers)
         || !Array.isArray(data.products)
         || !Array.isArray(data.purchase_records)
